@@ -2,6 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import { ethers } from "ethers";
 import SkyEtherContractService from "@decloudlabs/skynet/lib/services/SkyEtherContractService";
+import axios from "axios";
 
 function App() {
   const run = async () => {
@@ -43,8 +44,10 @@ function App() {
     // );
     // console.log(app);
 
-    const app = await skyMainBrowser.appManager.getDecryptedFile(4);
+
+    const app = await skyMainBrowser.appManager.getDecryptedFile(18);
     console.log(app);
+
   };
   return (
     <div className="App">
