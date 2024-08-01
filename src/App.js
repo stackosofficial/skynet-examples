@@ -2,7 +2,6 @@ import logo from "./logo.svg";
 import "./App.css";
 import { ethers } from "ethers";
 import SkyEtherContractService from "@decloudlabs/skynet/lib/services/SkyEtherContractService";
-import axios from "axios";
 
 function App() {
   const run = async () => {
@@ -35,19 +34,8 @@ function App() {
 
     await skyMainBrowser.init();
 
-    const resp = await skyMainBrowser.appManager.getUrsulaAuth();
-    console.log(resp);
-
-    // const app = await skyMainBrowser.contractService.AppNFT.tokenOfOwnerByIndex(
-    //   address,
-    //   0
-    // );
-    // console.log(app);
-
-
-    const app = await skyMainBrowser.appManager.getDecryptedFile(18);
-    console.log(app);
-
+    const app = await skyMainBrowser.appManager.getDecryptedFile(19);
+    console.log("app", app);
   };
   return (
     <div className="App">
