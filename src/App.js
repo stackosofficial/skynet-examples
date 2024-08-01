@@ -2,9 +2,15 @@ import logo from "./logo.svg";
 import "./App.css";
 import { ethers } from "ethers";
 import SkyEtherContractService from "@decloudlabs/skynet/lib/services/SkyEtherContractService";
+import { useState } from "react";
 
 function App() {
+  const [isSigned, setIsSigned] = useState(false);
+
   const run = async () => {
+    // Request account access if needed
+    await window.ethereum.request({ method: "eth_requestAccounts" });
+
     const provider = new ethers.providers.Web3Provider(window.ethereum);
 
     const signer = provider.getSigner();
@@ -34,25 +40,20 @@ function App() {
 
     await skyMainBrowser.init();
 
-    const app = await skyMainBrowser.appManager.getDecryptedFile(19);
-    console.log("app", app);
+    const resp = await skyMainBrowser.appManager.getUrsulaAuth();
+    console.log(resp);
+    if (resp.success) setIsSigned(true);
+
+    const decFile = await skyMainBrowser.appManager.getDecryptedFile(19);
+    console.log(decFile);
   };
   return (
     <div className="App">
       <header className="App-header">
-        <button onClick={run}>press me</button>
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        {/* <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a> */}
+        <button onClick={run} style={{ padding: "20px", fontSize: "16px" }}>
+          sign
+        </button>
+        <div>{isSigned ? "signed" : "not signed"}</div>
       </header>
     </div>
   );
